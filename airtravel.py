@@ -92,9 +92,23 @@ class Flight:
                     for row in self._seating
                     if row is not None)
 
+    def make_boarding_cards(self, card_printer):
+        """Get only one passenger seat with the generator"""
+        for passenger, seat in sorted(self._passenger_seats()):
+            card_printer(passenger, seat, self.number(), self.aircraft_model())
+
+    def _passenger_seats(self):
+        """Iterable series of passenger seatings"""
+        row_numbers, seat_letters = self._aircraft.seating_plan()
+        for row in row_numbers:
+            for letter in seat_letters:
+                passenger = self._seating[row][letter]
+                if passenger is not None:
+                    yield(passenger, "{}{}".format(row, letter))
+
 class Aircraft(object):
 
-    """docstring for Aircraft."""
+    """Aircraft class."""
     def __init__(self, registration, model, num_rows, num_seats_per_row):
         super(Aircraft, self).__init__()
         self._registration = registration
@@ -124,6 +138,7 @@ def make_flight():
     return f
 
 def console_card_printer(passenger, seat, flight_number, aircraft):
+    """Function instead of class declaration - pythonic"""
     output = "|  Name: {0}"   \
              "   Flight: {1}"  \
              "   Seat: {2}"    \
