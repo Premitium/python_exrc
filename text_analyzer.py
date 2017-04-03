@@ -41,7 +41,7 @@ class TextAnalysisTests(unittest.TestCase):
                 Does the function run at all?
 
         """
-        analyze_text()
+        analyze_text(self.filename)
 
 if __name__ == '__main__':
     unittest.main()
