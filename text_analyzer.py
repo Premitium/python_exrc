@@ -11,7 +11,7 @@ import os
 import unittest
 
 """In test driven dev we write enough code to satisfy our test"""
-def analyze_text():
+def analyze_text(filename):
     pass
 
 class TextAnalysisTests(unittest.TestCase):
