@@ -10,6 +10,10 @@
 
 import unittest
 
+"""In test driven dev we write enough code to satisfy our test"""
+def analyze_text():
+    pass
+
 class TextAnalysisTests(unittest.TestCase):
     """Tests for the `analyze_text()`."""
 
@@ -24,4 +28,4 @@ class TextAnalysisTests(unittest.TestCase):
         analyze_text()
 
 if __name__ == '__main__':
-    unittest.main()        
+    unittest.main()
