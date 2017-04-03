@@ -12,7 +12,14 @@ import unittest
 
 """In test driven dev we write enough code to satisfy our test"""
 def analyze_text(filename):
-    pass
+    """Return the number of lines and the number of characters in the file"""
+    lines = 0
+    chars = 0
+    with open(filename, 'r') as f:
+        for line in f:
+            lines += 1
+            chars += len(line)
+    return (lines, chars)
 
 class TextAnalysisTests(unittest.TestCase):
     """Tests for the `analyze_text()`."""
@@ -42,6 +49,24 @@ class TextAnalysisTests(unittest.TestCase):
 
         """
         analyze_text(self.filename)
+
+    def test_line_count(self):
+        """Check that the line count is correct."""
+        self.assertEqual(analyze_text(self.filename)[0], 4)
+
+    def test_character_count(self):
+        """Check the character count is correct"""
+        self.assertEqual(analyze_text(self.filename)[1], 127)
+
+    def test_no_such_file(self):
+        """Check the proper exception is thrown for a missing file."""
+        with self.assertRaises(IOError):
+            analyze_text('foobar')
+
+    def test_no_deletion(self):
+        """Check that the function doesn't delete the input file"""
+        analyze_text(self.filename)
+        self.assertTrue(os.path.exists(self.filename))
 
 if __name__ == '__main__':
     unittest.main()
